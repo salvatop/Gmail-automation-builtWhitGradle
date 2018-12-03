@@ -3,6 +3,7 @@ package com.crossover.e2e;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Properties;
+
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.openqa.selenium.*;
@@ -10,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 
 public class GMailTest extends TestCase {
@@ -37,7 +39,7 @@ public class GMailTest extends TestCase {
      */
     @Test
     public void testSendEmail() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver,5);
+        WebDriverWait wait = new WebDriverWait(driver,5, 500);
 
         driver.get("https://mail.google.com/");
 
@@ -80,13 +82,12 @@ public class GMailTest extends TestCase {
 
         driver.findElement(By.xpath("//*[@role='button' and text()='Send']")).click();
 
-        Thread.sleep(5000);
-
         //click on Social tab verify email is under this category, open it and add a star
-        driver.findElement(By.cssSelector("div[aria-label='Social']")).click();
-
         wait.until(ExpectedConditions.elementToBeClickable(
-                driver.findElement(By.xpath("//div[@class='y6']/span[contains(., '"+ emailSubject +"')]")))).click();
+                (By.cssSelector("div[aria-label='Social']")))).click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                (By.xpath("//div[@class='y6']/span[contains(., '"+ emailSubject +"')]")))).click();
 
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[aria-label='Not starred']"))).click();
         Thread.sleep(2000);
