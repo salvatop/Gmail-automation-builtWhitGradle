@@ -11,8 +11,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GMailTest extends TestCase {
     private WebDriver driver;
@@ -57,10 +55,8 @@ public class GMailTest extends TestCase {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("passwordNext"))).click();
 
         //click on compose and input subject and body
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='z0']/div")));
-        driver.findElement(By.xpath("//div[@class='z0']/div")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='z0']/div"))).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("to")));
         wait.until(ExpectedConditions.elementToBeClickable(By.name("to"))).clear();
         driver.findElement(By.name("to")).sendKeys(String.format("%s@gmail.com", properties.getProperty("username")));
         driver.findElement(By.className("aoT")).sendKeys(emailSubject);
@@ -69,7 +65,6 @@ public class GMailTest extends TestCase {
         driver.findElement(By.cssSelector("div[aria-label='Message Body']")).sendKeys(emailBody);
 
         //click on the option menu select label and apply Social label then send
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-tooltip='More options']")));
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[data-tooltip='More options']"))).click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[class='J-Ph J-N']")));
@@ -94,6 +89,7 @@ public class GMailTest extends TestCase {
                 driver.findElement(By.xpath("//div[@class='y6']/span[contains(., '"+ emailSubject +"')]")))).click();
 
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[aria-label='Not starred']"))).click();
+        Thread.sleep(2000);
 
         String subject = driver.findElement(By.xpath("//h2[@class='hP']")).getText();
         assertEquals(emailSubject, subject);
@@ -104,6 +100,7 @@ public class GMailTest extends TestCase {
 
         String tag = driver.findElement(By.xpath("//div[@name='^smartlabel_social']")).getText();
         assertTrue(tag.contains("Social"));
+
 
     }
 }
