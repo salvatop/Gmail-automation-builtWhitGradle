@@ -84,28 +84,26 @@ public class GMailTest extends TestCase {
         input.sendKeys(Keys.ENTER);
 
         driver.findElement(By.xpath("//*[@role='button' and text()='Send']")).click();
+
         Thread.sleep(5000);
 
         //click on Social tab verify email is under this category, open it and add a star
         driver.findElement(By.cssSelector("div[aria-label='Social']")).click();
 
-        String verifyLabel = driver.findElement(By.xpath("//div[@class='y6']/span")).getText();
-        System.out.println(verifyLabel);
-        assertThat(verifyLabel, containsString("Social"));
+        wait.until(ExpectedConditions.elementToBeClickable(
+                driver.findElement(By.xpath("//div[@class='y6']/span[contains(., '"+ emailSubject +"')]")))).click();
 
-        driver.findElement(By.xpath("//div[@class='y6']/span[contains(., '"+ emailSubject +"')]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Not starred']"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[aria-label='Not starred']"))).click();
 
         String subject = driver.findElement(By.xpath("//h2[@class='hP']")).getText();
         assertEquals(emailSubject, subject);
 
-        //String body = driver.findElement(By.cssSelector("div[dir='ltr']")).getText();
-        //assertEquals(emailBody, body);
+        String body = driver.findElement(By.xpath("//div[contains(@class, 'ii gt') "
+                + "and contains(string(), '"+ emailBody +"')]")).getText();
+        assertEquals(emailBody, body);
 
-
-
-
-
+        String tag = driver.findElement(By.xpath("//div[@name='^smartlabel_social']")).getText();
+        assertTrue(tag.contains("Social"));
 
     }
 }
