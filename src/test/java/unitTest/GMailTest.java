@@ -1,4 +1,4 @@
-package com.crossover.e2e;
+package unitTest;
 
 import java.io.File;
 import java.io.FileReader;
@@ -101,7 +101,5 @@ public class GMailTest extends TestCase {
 
         String tag = driver.findElement(By.xpath("//div[@name='^smartlabel_social']")).getText();
         assertTrue(tag.contains("Social"));
-
-
     }
 }
