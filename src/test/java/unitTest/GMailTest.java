@@ -12,8 +12,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-
 public class GMailTest extends TestCase {
     private WebDriver driver;
     private Properties properties = new Properties();
@@ -21,7 +19,6 @@ public class GMailTest extends TestCase {
     public void setUp() throws Exception {
         try{
         properties.load(new FileReader(new File("src/test/resources/test.properties")));
-        //Dont Change below line. Set this value in test.properties file incase you need to change it..
         System.setProperty("webdriver.chrome.driver",properties.getProperty("webdriver.chrome.driver") );
         driver = new ChromeDriver();
     } catch (Exception e) {
@@ -33,10 +30,6 @@ public class GMailTest extends TestCase {
         driver.quit();
     }
 
-    /*
-     * Please focus on completing the task
-     * 
-     */
     @Test
     public void testSendEmail() throws Exception {
         WebDriverWait wait = new WebDriverWait(driver,5, 500);
