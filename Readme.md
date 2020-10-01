@@ -1,4 +1,6 @@
-# Automated test for Gmail account written wiht selenium webdriver and java
+# Automated test for Gmail 
+
+Automated test for google Gmail email account, written in java using selenium webdriver API.
 
 The test is supposed to:
 - Login to Gmail
