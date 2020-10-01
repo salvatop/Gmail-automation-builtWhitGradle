@@ -1,5 +1,4 @@
-# Unit test:(GMAIL)
-The provided repository contains an incomplete automated test for email sending functionality via Gmail.
+# Automated test for Gmail account written wiht selenium webdriver and java
 
 The test is supposed to:
 - Login to Gmail
